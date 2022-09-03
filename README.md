@@ -1,18 +1,4 @@
-## Índice
-
-- [Sobre o Projeto](#-Sobre-o-Projeto)
-- [Tecnologias Utilizadas](#-Tecnologias-Utilizadas)
-- [Layout Dispositivo Móvel](#-Layout-Dispositivo-Móvel)
-- [Layout Dispositivo Web](#-Layout-Dispositivo-Web)
-- [Modelo Conceitual](#-Modelo-Conceitual)
-- [Como Executar o Projeto](#-Como-Executar-o-Projeto)
-- [Trabalho Escrito](#-Trabalho-Escrito)
-- [Trabalho Escrito - 1ª Entrega](#-1ª Entrega-do-projeto)
-- [Trabalho Escrito - 2ª Entrega](#-2ª Entrega-do-projeto)
-
-
-
- # Sobre o Projeto
+# Sobre o Projeto
 
 Descrever um resumo do projeto e os objetivos 
 
