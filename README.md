@@ -27,8 +27,8 @@ Descrever um resumo do projeto e os objetivos
 
 ### Front-end
 
-- 
-- 
+- Drawnio
+- Figma
 
 ### Implantação em produção
 
