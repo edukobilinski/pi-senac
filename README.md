@@ -64,7 +64,7 @@ usando o \projeto como veículo de ajuda e comunicação.
 
 ## Modelo Conceitual
 
-[imagem]()
+![Diagrama de Caso de Uso](https://raw.githubusercontent.com/edukobilinski/pi-senac/front-end/frontend/diagrama-de-caso-de-uso.png)
 
 
 
@@ -85,9 +85,12 @@ Pré-requisitos:
 
 
 
+
+
 # Estrutura do Trabalho Escrito
 
 
+[Link Trabalho escrito .pdf]()
 
 
 
