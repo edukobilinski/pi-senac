@@ -1,39 +1,48 @@
+<!-- 
 ## Índice
 
-- [Sobre o Projeto](#-Sobre-o-Projeto)
-- [Tecnologias Utilizadas](#-Tecnologias-Utilizadas)
-- [Layout Dispositivo Móvel](#-Layout-Dispositivo-Móvel)
-- [Layout Dispositivo Web](#-Layout-Dispositivo-Web)
-- [Modelo Conceitual](#-Modelo-Conceitual)
-- [Como Executar o Projeto](#-Como-Executar-o-Projeto)
-- [Trabalho Escrito](#-Trabalho-Escrito)
-- [Trabalho Escrito - 1ª Entrega](#-1ª Entrega-do-projeto)
-- [Trabalho Escrito - 2ª Entrega](#-2ª Entrega-do-projeto)
+- [Sobre o Projeto](#sobre-o-projeto)
+  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+    - [Front-end](#front-end)
+  - [Layout Dispositivo Móvel](#layout-dispositivo-móvel)
+  - [Layout Dispositivo Web](#layout-dispositivo-web)
+  - [Modelo Conceitual](#modelo-conceitual)
+- [Estrutura do Trabalho Escrito](#estrutura-do-trabalho-escrito)
+  - [1ª Entrega do projeto](#1ª-entrega-do-projeto)
+      - [Visão geral do projeto](#visão-geral-do-projeto)
+      - [Planejamento para o desenvolvimento](#planejamento-para-o-desenvolvimento)
+  - [2ª Entrega do projeto](#2ª-entrega-do-projeto)
+-->
 
 
+# Sobre o Projeto
 
- # Sobre o Projeto
-
-Descrever um resumo do projeto e os objetivos 
+O objetivo do projeto é criar uma ferramenta web que possa ser utilizada para 
+promover campanhas de doação e arrecadação coletiva para causas sociais, 
+atreladas a divulgação em redes sociais dos usuários, para promover a 
+comunicação e atender às necessidades de pessoas que precisam de ajuda e assim, 
+usando o \projeto como veículo de ajuda e comunicação.
 
 
 
 ## Tecnologias Utilizadas
-
+<!-- 
 ### Back-end
 
 - 
 - 
+-->
 
 ### Front-end
 
 - Drawnio
 - Figma
-
+<!-- 
 ### Implantação em produção
 
 - 
 - 
+-->
 
 
 
@@ -55,12 +64,12 @@ Descrever um resumo do projeto e os objetivos
 
 ## Modelo Conceitual
 
-[imagem]()
+![Diagrama de Caso de Uso](https://raw.githubusercontent.com/edukobilinski/pi-senac/front-end/frontend/diagrama-de-caso-de-uso.png)
 
 
 
+<!-- 
 # Como Executar o Projeto
-
 ### Back-end
 
 Pré-requisitos:
@@ -68,6 +77,7 @@ Pré-requisitos:
 ### Front-end web
 
 Pré-requisitos:
+-->
 
 
 
@@ -75,9 +85,12 @@ Pré-requisitos:
 
 
 
+
+
 # Estrutura do Trabalho Escrito
 
 
+[Link Trabalho escrito .pdf]()
 
 
 
