@@ -1,7 +1,6 @@
 package br.com.senac.backend.resources;
 
 import br.com.senac.backend.entities.Campaign;
-import br.com.senac.backend.entities.User;
 import br.com.senac.backend.services.CampaignService;
 import br.com.senac.backend.utils.ContextLog;
 import lombok.extern.java.Log;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 import static br.com.senac.backend.utils.MessageLogsEnum.*;
-import static br.com.senac.backend.utils.MessageLogsEnum.RSC_0002D;
 
 @Log
 @RestController
