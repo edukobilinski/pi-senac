@@ -17,6 +17,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String cpf;
     private String email;
     private String phone;
     private String password;
@@ -33,9 +34,10 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Long id, String name, String email, String phone, String password, String zipCode, String address, String city, String state, String country) {
+    public User(Long id, String name, String cpf, String email, String phone, String password, String zipCode, String address, String city, String state, String country) {
         this.id = id;
         this.name = name;
+        this.cpf = cpf;
         this.email = email;
         this.phone = phone;
         this.password = password;
@@ -60,6 +62,14 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -137,12 +147,6 @@ public class User implements Serializable {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
                 '}';
     }
 
