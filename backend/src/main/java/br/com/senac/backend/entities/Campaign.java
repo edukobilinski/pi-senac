@@ -57,6 +57,14 @@ public class Campaign implements Serializable {
         this.name = name;
     }
 
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
     public Double getTargetValue() {
         return targetValue;
     }
@@ -120,9 +128,11 @@ public class Campaign implements Serializable {
                 ", name='" + name + '\'' +
                 ", targetValue=" + targetValue +
                 ", beneficiary='" + beneficiary + '\'' +
+                ", bankName='" + bankName + '\'' +
                 ", accountAgency='" + accountAgency + '\'' +
                 ", accountIdentification='" + accountIdentification + '\'' +
                 ", campaignDescription='" + campaignDescription + '\'' +
+                ", urlImage='" + urlImage + '\'' +
                 ", user=" + user +
                 '}';
     }
