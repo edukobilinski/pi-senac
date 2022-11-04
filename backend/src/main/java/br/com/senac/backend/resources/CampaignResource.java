@@ -22,6 +22,20 @@ public class CampaignResource {
     @Autowired
     private CampaignService campaignService;
 
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<?> findCampaignByUserId(@PathVariable Long id) {
+        var context = ContextLog.builder()
+                .classe(Thread.currentThread().getStackTrace()[1].getClassName())
+                .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
+                .build();
+        log.info(RSC_0001D.logContext(context.getClasse(), context.getMetodo()));
+
+        var userList = campaignService.findCampaignByUserId(id);
+
+        log.info(RSC_0002D.logContext(context.getClasse(), context.getMetodo()));
+        return ResponseEntity.ok(userList);
+    }
+
     @GetMapping
     public ResponseEntity<?> findAll() {
         var context = ContextLog.builder()
@@ -30,10 +44,10 @@ public class CampaignResource {
                 .build();
         log.info(RSC_0001D.logContext(context.getClasse(), context.getMetodo()));
 
-        var userList = campaignService.findAll();
+        var list = campaignService.findAll();
 
         log.info(RSC_0002D.logContext(context.getClasse(), context.getMetodo()));
-        return ResponseEntity.ok(userList);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping(value = "/{id}")
