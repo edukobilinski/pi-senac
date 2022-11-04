@@ -1,15 +1,18 @@
 package br.com.senac.backend.resources;
 
+import br.com.senac.backend.dto.CampaignDTO;
 import br.com.senac.backend.entities.Campaign;
 import br.com.senac.backend.services.CampaignService;
 import br.com.senac.backend.utils.ContextLog;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 import static br.com.senac.backend.utils.MessageLogsEnum.*;
 
@@ -22,8 +25,8 @@ public class CampaignResource {
     @Autowired
     private CampaignService campaignService;
 
-    @GetMapping(value = "/user/{id}")
-    public ResponseEntity<?> findCampaignByUserId(@PathVariable Long id) {
+    @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CampaignDTO>> findCampaignByUserId(@PathVariable Long id) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -36,8 +39,8 @@ public class CampaignResource {
         return ResponseEntity.ok(userList);
     }
 
-    @GetMapping
-    public ResponseEntity<?> findAll() {
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CampaignDTO>> findAll() {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -50,8 +53,8 @@ public class CampaignResource {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CampaignDTO> findById(@PathVariable Long id) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -64,8 +67,8 @@ public class CampaignResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping
-    public ResponseEntity<?> insert(@RequestBody Campaign obj) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Campaign> insert(@RequestBody Campaign obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -81,7 +84,7 @@ public class CampaignResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
@@ -96,8 +99,8 @@ public class CampaignResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Campaign obj) {
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Campaign> update(@PathVariable Long id, @RequestBody Campaign obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
