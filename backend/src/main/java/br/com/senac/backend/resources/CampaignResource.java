@@ -1,8 +1,9 @@
 package br.com.senac.backend.resources;
 
 import br.com.senac.backend.dto.CampaignDTO;
+import br.com.senac.backend.dto.CampaignInsertDTO;
 import br.com.senac.backend.dto.CampaignSavedDTO;
-import br.com.senac.backend.entities.Campaign;
+import br.com.senac.backend.dto.CampaignUpdateDTO;
 import br.com.senac.backend.services.CampaignService;
 import br.com.senac.backend.utils.ContextLog;
 import lombok.extern.java.Log;
@@ -69,7 +70,7 @@ public class CampaignResource {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CampaignSavedDTO> insert(@RequestBody Campaign obj) {
+    public ResponseEntity<CampaignSavedDTO> insert(@RequestBody CampaignInsertDTO obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -78,7 +79,7 @@ public class CampaignResource {
 
         var objSaved = campaignService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(obj.getId()).toUri();
+                .buildAndExpand(objSaved.getId()).toUri();
 
         log.info(RSC_0003D.getObjDescription(uri.toString()));
         log.info(RSC_0002D.logContext(context.getClasse(), context.getMetodo()));
@@ -101,7 +102,7 @@ public class CampaignResource {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CampaignSavedDTO> update(@PathVariable Long id, @RequestBody Campaign obj) {
+    public ResponseEntity<CampaignSavedDTO> update(@PathVariable Long id, @RequestBody CampaignUpdateDTO obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())

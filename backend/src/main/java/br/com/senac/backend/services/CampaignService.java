@@ -1,7 +1,9 @@
 package br.com.senac.backend.services;
 
 import br.com.senac.backend.dto.CampaignDTO;
+import br.com.senac.backend.dto.CampaignInsertDTO;
 import br.com.senac.backend.dto.CampaignSavedDTO;
+import br.com.senac.backend.dto.CampaignUpdateDTO;
 import br.com.senac.backend.entities.Campaign;
 import br.com.senac.backend.exceptions.DatabaseException;
 import br.com.senac.backend.exceptions.ResourceNotFoundException;
@@ -76,11 +78,12 @@ public class CampaignService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public CampaignSavedDTO insert(Campaign obj) {
+    public CampaignSavedDTO insert(CampaignInsertDTO objInsert) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
                 .build();
+        var obj = campaignMapper.mapDtoToCampaign(objInsert);
 
         var objSaved = campaignMapper.mapToSavedDTO(campaignRepository.save(obj));
         if (objSaved != null) {
@@ -106,7 +109,7 @@ public class CampaignService {
         }
     }
 
-    public CampaignSavedDTO update(Long id, Campaign obj) {
+    public CampaignSavedDTO update(Long id, CampaignUpdateDTO obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -128,7 +131,7 @@ public class CampaignService {
         }
     }
 
-    private void updateData(Campaign entity, Campaign obj) {
+    private void updateData(Campaign entity, CampaignUpdateDTO obj) {
         entity.setName(obj.getName());
         entity.setTargetValue(obj.getTargetValue());
         entity.setBeneficiary(obj.getBeneficiary());
