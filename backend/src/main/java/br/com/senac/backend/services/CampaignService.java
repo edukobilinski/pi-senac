@@ -1,6 +1,7 @@
 package br.com.senac.backend.services;
 
 import br.com.senac.backend.dto.CampaignDTO;
+import br.com.senac.backend.dto.CampaignSavedDTO;
 import br.com.senac.backend.entities.Campaign;
 import br.com.senac.backend.exceptions.DatabaseException;
 import br.com.senac.backend.exceptions.ResourceNotFoundException;
@@ -75,13 +76,13 @@ public class CampaignService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public Campaign insert(Campaign obj) {
+    public CampaignSavedDTO insert(Campaign obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
                 .build();
 
-        var objSaved = campaignRepository.save(obj);
+        var objSaved = campaignMapper.mapToSavedDTO(campaignRepository.save(obj));
         if (objSaved != null) {
             log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
         }
@@ -105,7 +106,7 @@ public class CampaignService {
         }
     }
 
-    public Campaign update(Long id, Campaign obj) {
+    public CampaignSavedDTO update(Long id, Campaign obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -115,7 +116,7 @@ public class CampaignService {
 
             updateData(entity, obj);
 
-            var objSaved = campaignRepository.save(entity);
+            var objSaved = campaignMapper.mapToSavedDTO(campaignRepository.save(entity));
 
             if (objSaved != null) {
                 log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
@@ -135,6 +136,7 @@ public class CampaignService {
         entity.setAccountAgency(obj.getAccountAgency());
         entity.setAccountIdentification(obj.getAccountIdentification());
         entity.setCampaignDescription(obj.getCampaignDescription());
+        entity.setUrlImage(obj.getUrlImage());
     }
 
 }
