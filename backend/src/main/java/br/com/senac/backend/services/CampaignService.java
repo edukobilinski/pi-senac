@@ -37,7 +37,12 @@ public class CampaignService {
         var list = campaignRepository.findCampaignByUser_Id(id)
                 .stream().map(c -> campaignMapper.mapToDTO(c)).collect(Collectors.toList());
 
-        log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
+        if (!list.isEmpty()) {
+            log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
+        } else {
+            log.severe(SRV_0003E.getObjDescription(id.toString()));
+            throw new ResourceNotFoundException(id);
+        }
 
         return list;
     }

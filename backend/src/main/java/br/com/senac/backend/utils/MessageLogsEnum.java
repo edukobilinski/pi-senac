@@ -24,7 +24,8 @@ public enum MessageLogsEnum {
     SRV_0001D("SRV_0001D", "Service Layer Processed Ok "),
 
     SRV_0001E("SRV_0001E", "Resource not found. Id "),
-    SRV_0002E("SRV_0002E", "Data Integrity Violation Exception: ");
+    SRV_0002E("SRV_0002E", "Data Integrity Violation Exception: "),
+    SRV_0003E("SRV_0003E", "Resource not found, List Empty. Id ");
 
     private String code;
     private String description;
