@@ -1,5 +1,6 @@
 package br.com.senac.backend.services;
 
+import br.com.senac.backend.dto.UserLoggedDTO;
 import br.com.senac.backend.entities.User;
 import br.com.senac.backend.exceptions.DatabaseException;
 import br.com.senac.backend.exceptions.ResourceNotFoundException;
@@ -99,6 +100,15 @@ public class UserService {
         } catch (EntityNotFoundException e) {
             log.severe(SRV_0001E.getObjDescription(id.toString()));
             throw new ResourceNotFoundException(id);
+        }
+    }
+
+    public UserLoggedDTO userLogIn(Long idUser, String password){
+        var user = findById(idUser);
+        if (user.getPassword().equals(password)){
+            return UserLoggedDTO.builder().active(true).build();
+        } else {
+            return UserLoggedDTO.builder().active(false).build();
         }
     }
 

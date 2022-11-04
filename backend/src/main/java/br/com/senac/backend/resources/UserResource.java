@@ -1,5 +1,6 @@
 package br.com.senac.backend.resources;
 
+import br.com.senac.backend.dto.UserLoggedDTO;
 import br.com.senac.backend.entities.User;
 import br.com.senac.backend.services.UserService;
 import br.com.senac.backend.utils.ContextLog;
@@ -20,6 +21,9 @@ import static br.com.senac.backend.utils.MessageLogsEnum.*;
 @CrossOrigin
 @RequestMapping(value = "/users")
 public class UserResource {
+
+    private static final String ID = "x-doeacao-id";
+    private static final String PASSWORD = "x-doeacao-password";
 
     @Autowired
     private UserService userService;
@@ -95,6 +99,21 @@ public class UserResource {
         obj = userService.update(id, obj);
 
         log.info(RSC_0005D.getObjDescription(obj.toString()));
+        log.info(RSC_0002D.logContext(context.getClasse(), context.getMetodo()));
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value = "/login",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserLoggedDTO> userLogIn(@RequestHeader(ID) Long id, @RequestHeader(PASSWORD) String password) {
+
+        var context = ContextLog.builder()
+                .classe(Thread.currentThread().getStackTrace()[1].getClassName())
+                .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
+                .build();
+        log.info(RSC_0001D.logContext(context.getClasse(), context.getMetodo()));
+
+        var obj = userService.userLogIn(id, password);
+
         log.info(RSC_0002D.logContext(context.getClasse(), context.getMetodo()));
         return ResponseEntity.ok().body(obj);
     }
