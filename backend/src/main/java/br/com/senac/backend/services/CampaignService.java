@@ -1,7 +1,6 @@
 package br.com.senac.backend.services;
 
 import br.com.senac.backend.entities.Campaign;
-import br.com.senac.backend.entities.User;
 import br.com.senac.backend.exceptions.DatabaseException;
 import br.com.senac.backend.exceptions.ResourceNotFoundException;
 import br.com.senac.backend.repositories.CampaignRepository;
@@ -23,6 +22,18 @@ public class CampaignService {
 
     @Autowired
     private CampaignRepository campaignRepository;
+
+    public List<Campaign> findCampaignByUserId(Long id) {
+        var context = ContextLog.builder()
+                .classe(Thread.currentThread().getStackTrace()[1].getClassName())
+                .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
+                .build();
+        var list = campaignRepository.findCampaignByUser_Id(id);
+
+        log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
+
+        return list;
+    }
 
     public List<Campaign> findAll() {
         var context = ContextLog.builder()
