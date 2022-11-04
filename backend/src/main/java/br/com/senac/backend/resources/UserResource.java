@@ -5,11 +5,13 @@ import br.com.senac.backend.services.UserService;
 import br.com.senac.backend.utils.ContextLog;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 import static br.com.senac.backend.utils.MessageLogsEnum.*;
 
@@ -22,8 +24,8 @@ public class UserResource {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public ResponseEntity<?> findAll() {
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> findAll() {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -36,8 +38,8 @@ public class UserResource {
         return ResponseEntity.ok(userList);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> findById(@PathVariable Long id) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -50,8 +52,8 @@ public class UserResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping
-    public ResponseEntity<?> insert(@RequestBody User obj) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> insert(@RequestBody User obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -67,7 +69,7 @@ public class UserResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
@@ -82,8 +84,8 @@ public class UserResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody User obj) {
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
