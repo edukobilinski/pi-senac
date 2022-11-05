@@ -66,7 +66,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i
+                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i onclick="clearCache()"
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -79,59 +79,51 @@
 
 
     <!--Formulário Campanha-->
-    <form class="container px-4 p-2" action="">
-        <img class="inserir-img-campanha" id="output" />
+    <form id="cadastro-campanha-form" class="container px-4 p-2" action="">
+        <img class="inserir-img-campanha" id="url_image" />
         <div class="mb-3">
-            <input class="form-control inserir-img-campanha" id="formFile" type="file" accept="image/*"
-                onchange="loadFile(event)" required>
-        </div>
-        <script>
-            var loadFile = function (event) {
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var output = document.getElementById('output');
-                    output.src = reader.result;
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            };
-        </script>
-        <div class="row p-1">
-            <input class="input-default col" type="text" placeholder="Titulo da Campanha" required>
+            <input class="form-control inserir-img-campanha" id="inserir-img-campanha" placeholder="URL da sua imagem"
+                type="text" required>
         </div>
         <div class="row p-1">
-            <input class="input-default col" class="col" type="number" min="1" step="any" placeholder="Valor" required>
+            <input class="input-default col" type="text" id="name_campaign" required>
         </div>
         <div class="row p-1">
-            <input class="input-default col" type="text" placeholder="Destinatário" required>
+            <input class="input-default col" class="col" id="target_value" type="number" required>
+        </div>
+        <div class="row p-1">
+            <input class="input-default col" type="text" id="beneficiary" required>
         </div>
         <div class="row row-cols-2">
             <div class="p-1">
-                <input class="input-small col col-mobile" type="text" placeholder="Agência" required>
+                <input class="input-small col col-mobile" id="account_agency" type="text" required>
             </div>
             <div class="p-1">
-                <input class="input-small col col-mobile" type="text" placeholder="Conta" required>
+                <input class="input-small col col-mobile" id="account_identification" type="text" required>
             </div>
         </div>
         <div class="row p-1">
-            <input class="input-default col col-mobile" type="text" placeholder="Banco" required>
+            <input class="input-default col col-mobile" id="bank_name" type="text" required>
         </div>
         <div class="row p-1">
-            <textarea class="input-default col col-mobile" aria-label="With textarea"
-                placeholder="Descrição da campanha" required></textarea>
+            <textarea class="input-default col col-mobile" id="campaign_description" required></textarea>
         </div>
         <div class="row p-1">
-            <button formaction="/pages/pagina_campanha.html" type="submit" class="button-default col">Salvar</button>
+            <button type="submit" class="button-default col">Salvar</button>
         </div>
-        <a class="cancelar" href="/pages/home.html">Cancelar</button>
-            <a class="deletar" href="/pages/campanha_cancelada.html">Cancelar Campanha</button>
+        <a class="cancelar" href="/pages/pagina_campanha.html">Voltar</button>
+            <a class="deletar" href="/pages/campanha_cancelada.html" onclick="cancelCampaign()">Cancelar
+                Campanha</button>
     </form>
     <!--Formulário Campanha-->
+
 
 
     <!--Scripts-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
+    <script src="jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -140,6 +132,68 @@
         crossorigin="anonymous"></script>
     <script src="/javascript/scripts.js"></script>
     <script src="https://kit.fontawesome.com/e04a0ccd25.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        var currentCampaignId = JSON.parse(localStorage.getItem('current_campaign_id'));
+
+        function getCampaignById() {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", `https://app-doeacao.herokuapp.com/doeacao/campaigns/${currentCampaignId}`, false);
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
+        }
+
+        window.onload = function () {
+            var currentCampaign = JSON.parse(getCampaignById());
+            document.getElementById("name_campaign").value = currentCampaign['name_campaign'];
+            document.getElementById("target_value").value = currentCampaign['target_value'];
+            document.getElementById("beneficiary").value = currentCampaign['beneficiary'];
+            document.getElementById("bank_name").value = currentCampaign['bank_name'];
+            document.getElementById("account_agency").value = currentCampaign['account_agency'];
+            document.getElementById("account_identification").value = currentCampaign['account_identification'];
+            document.getElementById("campaign_description").value = currentCampaign['campaign_description'];
+            document.getElementById("url_image").src = currentCampaign['url_image'];
+            document.getElementById("inserir-img-campanha").value = currentCampaign['url_image'];
+        }
+
+        function clearCache() {
+            localStorage.clear()
+        }
+
+        function cancelCampaign() {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("DELETE", `https://app-doeacao.herokuapp.com/doeacao/campaigns/${currentCampaignId}`, false);
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
+        }
+
+        $('#cadastro-campanha-form').on('submit', function (event) {
+            var dict = {
+                "name_campaign": document.getElementById("name_campaign").value,
+                "target_value": document.getElementById("target_value").value,
+                "beneficiary": document.getElementById("beneficiary").value,
+                "bank_name": document.getElementById("bank_name").value,
+                "account_agency": document.getElementById("account_agency").value,
+                "account_identification": document.getElementById("account_identification").value,
+                "campaign_description": document.getElementById("campaign_description").value,
+                "url_image": document.getElementById("inserir-img-campanha").value,
+            };
+
+            const serialize_form = form => JSON.stringify(dict);
+            event.preventDefault();
+            const json = serialize_form(this);
+
+            $.ajax({
+                type: 'PUT',
+                url: `https://app-doeacao.herokuapp.com/doeacao/campaigns/${currentCampaignId}`,
+                dataType: 'json',
+                data: json,
+                contentType: 'application/json',
+            });
+            alert("Campanha atualizada!");
+            window.location.href = "/pages/pagina_campanha.html";
+        });
+    </script>
     <!--Scripts-->
 </body>
 

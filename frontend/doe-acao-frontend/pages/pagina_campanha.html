@@ -66,7 +66,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i
+                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i onclick="clearCache()"
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -80,47 +80,67 @@
 
     <!--Formulário Campanha-->
     <form class="container px-4 p-2" action="">
+        <img class="img-campanha" id="url_image">
+        <br><br>
         <div class="row p-1">
-            <img class="img-campanha" src="/img/default-placeholder.png">
-        </div>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
-                aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            <input class="input-default col" type="text" id="name_campaign" disabled="disabled">
         </div>
         <div class="row p-1">
-            <input class="input-default col" type="text" placeholder="Titulo da Campanha" disabled="disabled">
+            <input class="input-default col" class="col" id="target_value" type="text" disabled="disabled">
         </div>
         <div class="row p-1">
-            <input class="input-default col" class="col" type="text" min="1" step="any" placeholder="Valor"
-                disabled="disabled">
-        </div>
-        <div class="row p-1">
-            <input class="input-default col" type="text" placeholder="Destinatário" disabled="disabled">
+            <input class="input-default col" type="text" id="beneficiary" disabled="disabled">
         </div>
         <div class="row row-cols-2">
             <div class="p-1">
-                <input class="input-small col col-mobile" type="text" placeholder="Agência" disabled="disabled">
+                <input class="input-small col col-mobile" id="account_agency" type="text" disabled="disabled">
             </div>
             <div class="p-1">
-                <input class="input-small col col-mobile" type="text" placeholder="Conta" disabled="disabled">
+                <input class="input-small col col-mobile" id="account_identification" type="text" disabled="disabled">
             </div>
         </div>
         <div class="row p-1">
-            <input class="input-default col col-mobile" type="text" placeholder="Banco" disabled="disabled">
+            <input class="input-default col col-mobile" id="bank_name" type="text" disabled="disabled">
         </div>
         <div class="row p-1">
-            <textarea class="input-default col col-mobile" aria-label="With textarea"
-                placeholder="Descrição da campanha" disabled="disabled"></textarea>
+            <textarea class="input-default col col-mobile" id="campaign_description" disabled="disabled"></textarea>
         </div>
         <div class="row p-1">
-            <button formaction="/pages/editar_campanha.html" type="submit"  class="button-default col">Editar</button>
+            <button formaction="/pages/editar_campanha.html" type="submit" class="button-default col">Editar</button>
         </div>
-        <a class="cancelar" href="/pages/home.html">Voltar</button>
+        <a class="cancelar" href="/pages/minhas_campanhas.html">Voltar</button>
     </form>
     <!--Formulário Campanha-->
 
 
     <!--Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function getCampaignById() {
+            var currentCampaignId = JSON.parse(localStorage.getItem('current_campaign_id'));
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", `https://app-doeacao.herokuapp.com/doeacao/campaigns/${currentCampaignId}`, false );
+            xmlHttp.send( null );
+            return xmlHttp.responseText;
+        }
+
+        window.onload = function () {
+            var currentCampaign = JSON.parse(getCampaignById());
+            document.getElementById("name_campaign").value = currentCampaign['name_campaign'];
+            document.getElementById("target_value").value = currentCampaign['target_value'];
+            document.getElementById("beneficiary").value = currentCampaign['beneficiary'];
+            document.getElementById("bank_name").value = currentCampaign['bank_name'];
+            document.getElementById("account_agency").value = currentCampaign['account_agency'];
+            document.getElementById("account_identification").value = currentCampaign['account_identification'];
+            document.getElementById("campaign_description").value = currentCampaign['campaign_description'];
+            document.getElementById("url_image").src = currentCampaign['url_image'];
+        }
+
+        function clearCache() {
+            localStorage.clear()
+        }
+    </script>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

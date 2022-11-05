@@ -66,7 +66,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i
+                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i onclick="clearCache()"
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -80,71 +80,72 @@
 
     <!--Formulário Campanha-->
     <form class="container px-4 p-2" action="">
-        <img class="inserir-img-campanha" id="output" />
-        <label class="img-campanha-texto">Imagem da sua campanha</label>
+        <img class="inserir-img-campanha" id="url_image" />
         <div class="mb-3">
-            <input class="form-control inserir-img-campanha" id="url_image" type="file" accept="image/*"
-                onchange="loadFile(event)" required>
-        </div>
-        <script>
-            var loadFile = function (event) {
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var output = document.getElementById('output');
-                    output.src = reader.result;
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            };
-        </script>
-        <div class="row p-1">
-            <input class="input-default col" type="text" id="name_campaign" placeholder="Titulo da Campanha">
+            <input class="form-control inserir-img-campanha" id="inserir-img-campanha" placeholder="URL da sua imagem"
+                type="text" required>
         </div>
         <div class="row p-1">
-            <input class="input-default col" class="col" id="target_value" type="number" min="1" step="any" placeholder="Valor">
+            <input class="input-default col" type="text" id="name_campaign" placeholder="Titulo da Campanha" required>
         </div>
         <div class="row p-1">
-            <input class="input-default col" type="text" id="beneficiary" placeholder="Destinatário">
+            <input class="input-default col" class="col" id="target_value" type="number" min="1" step="any"
+                placeholder="Valor" required>
+        </div>
+        <div class="row p-1">
+            <input class="input-default col" type="text" id="beneficiary" placeholder="Destinatário" required>
         </div>
         <div class="row row-cols-2">
             <div class="p-1">
-                <input class="input-small col col-mobile" id="account_agency" type="text" placeholder="Agência">
+                <input class="input-small col col-mobile" id="account_agency" type="text" placeholder="Agência"
+                    required>
             </div>
             <div class="p-1">
-                <input class="input-small col col-mobile" id="account_identification" type="text" placeholder="Conta">
+                <input class="input-small col col-mobile" id="account_identification" type="text" placeholder="Conta"
+                    required>
             </div>
         </div>
         <div class="row p-1">
-            <input class="input-default col col-mobile" id="bank_name" type="text" placeholder="Banco">
+            <input class="input-default col col-mobile" id="bank_name" type="text" placeholder="Banco" required>
         </div>
         <div class="row p-1">
-            <textarea class="input-default col col-mobile" id="campaign_description" aria-label="With textarea"
-                placeholder="Descrição da campanha"></textarea>
+            <textarea class="input-default col col-mobile" id="campaign_description" placeholder="Descrição da campanha"
+                required></textarea>
         </div>
         <div class="row p-1">
             <button formaction="/pages/revisar_campanha.html" onclick="cacheInput()" type="submit" class="button-default col">Avançar</button>
         </div>
-        <a class="cancelar" href="/pages/cadastro_campanha.html">Voltar</button>
+        <a class="cancelar" href="/pages/home.html">Cancelar</button>
     </form>
     <!--Formulário Campanha-->
 
-    <!--Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         function cacheInput() {
-            localStorage.clear();
-            localStorage.setItem("name_campaign", JSON.stringify(document.getElementById("name_campaign").value))
-            localStorage.setItem("target_value", JSON.stringify(document.getElementById("target_value").value))
-            localStorage.setItem("beneficiary", JSON.stringify(document.getElementById("beneficiary").value))
-            localStorage.setItem("bank_name", JSON.stringify(document.getElementById("bank_name").value))
-            localStorage.setItem("account_agency", JSON.stringify(document.getElementById("account_agency").value))
-            localStorage.setItem("account_identification", JSON.stringify(document.getElementById("account_identification").value))
-            localStorage.setItem("campaign_description", JSON.stringify(document.getElementById("campaign_description").value))
-            localStorage.setItem("url_image", JSON.stringify(document.getElementById("url_image").src))
+            var idUser = localStorage.getItem('id_user')
+            localStorage.clear()
+            localStorage.setItem("name_campaign", JSON.stringify(document.getElementById("name_campaign").value));
+            localStorage.setItem("target_value", JSON.stringify(document.getElementById("target_value").value));
+            localStorage.setItem("beneficiary", JSON.stringify(document.getElementById("beneficiary").value));
+            localStorage.setItem("bank_name", JSON.stringify(document.getElementById("bank_name").value));
+            localStorage.setItem("account_agency", JSON.stringify(document.getElementById("account_agency").value));
+            localStorage.setItem("account_identification", JSON.stringify(document.getElementById("account_identification").value));
+            localStorage.setItem("campaign_description", JSON.stringify(document.getElementById("campaign_description").value));
+            localStorage.setItem("url_image", JSON.stringify(document.getElementById("inserir-img-campanha").value));
+            localStorage.setItem("id_user", idUser)
             return false;
+        }
+
+        function clearCache() {
+            localStorage.clear()
         }
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="jquery-3.6.0.min.js"></script>
+
+    <!--Scripts-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>

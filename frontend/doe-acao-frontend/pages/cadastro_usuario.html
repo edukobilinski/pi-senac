@@ -54,7 +54,7 @@
                 <input class="input-default col" id="country" type="text" placeholder="País" required>
             </div>
             <div class="row p-1">
-                <button formaction="/pages/home.html" type="submit" class="button-default col">Cadastrar</button>
+                <button type="submit" class="button-default col">Cadastrar</button>
             </div>
             <a class="cancelar" href="/pages/login.html">Cancelar</button>
         </form>
@@ -64,34 +64,65 @@
     <!--Scripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        var dict = {
-            "name": document.getElementById("name").value,
-            "cpf": document.getElementById("cpf").value,
-            "email": document.getElementById("email").value,
-            "phone": document.getElementById("phone").value,
-            "password": document.getElementById("password").value,
-            "zipCode": document.getElementById("zipCode").value,
-            "address": document.getElementById("address").value,
-            "city": document.getElementById("city").value,
-            "state": document.getElementById("state").value,
-            "country": document.getElementById("country").value
-        };
-        
-        const serialize_form = form => JSON.stringify(dict);
-
         $('#cadastro-usuario-form').on('submit', function(event) {
-            event.preventDefault();
-            const json = serialize_form(this);
-            console.log(json);
-            $.ajax({
-                type: 'POST',
-                url: 'https://app-doeacao.herokuapp.com/doeacao/users',
-                dataType: 'json',
-                data: json,
-                contentType: 'application/json',
-            });
-        });
+            function httpGetIdUser() {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", 'https://app-doeacao.herokuapp.com/doeacao/users', false );
+                xmlHttp.send( null );
+                return xmlHttp.responseText;
+            }
 
+            var users = JSON.parse(httpGetIdUser());
+
+            function checkEmail () {
+                var arrayLength = users.length;
+                var currentUserEmail = document.getElementById("email").value;
+
+                for (var i = 0; i < arrayLength; i++) {
+                    if ( users[i]["email"] == currentUserEmail ) {
+                        localStorage.setItem("curret_user_email", JSON.stringify(currentUserEmail))
+                        return false;;
+                    }
+                }
+            }
+
+            var checkUserEmail = checkEmail();
+
+            if (checkUserEmail == false) {
+                alert("E-mail já cadastrado");
+                
+            } else {
+
+                var dict = {
+                    "name": document.getElementById("name").value,
+                    "cpf": document.getElementById("cpf").value,
+                    "email": document.getElementById("email").value,
+                    "phone": document.getElementById("phone").value,
+                    "password": document.getElementById("password").value,
+                    "zipCode": document.getElementById("zipCode").value,
+                    "address": document.getElementById("address").value,
+                    "city": document.getElementById("city").value,
+                    "state": document.getElementById("state").value,
+                    "country": document.getElementById("country").value
+                };
+            
+                const serialize_form = form => JSON.stringify(dict);
+
+                event.preventDefault();
+                const json = serialize_form(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://app-doeacao.herokuapp.com/doeacao/users',
+                    dataType: 'json',
+                    data: json,
+                    contentType: 'application/json',
+                });
+
+                window.location.href = "/pages/home.html";
+
+            }
+        });
     </script>
 
     <script src="jquery-3.6.0.min.js"></script>
