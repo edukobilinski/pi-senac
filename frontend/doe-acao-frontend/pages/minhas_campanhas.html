@@ -65,7 +65,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i
+                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i onclick="clearCache()"
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -76,13 +76,43 @@
 
     <h1 class="titulo-pagina">Minhas Campanhas</h1>
 
+    <div class="campanhas">
+        <script>
+            function httpGetCampaigns() {
+                var xmlHttp = new XMLHttpRequest();
+                var currentIdUser = JSON.parse(localStorage.getItem('id_user'))
+                xmlHttp.open("GET", `https://app-doeacao.herokuapp.com/doeacao/campaigns/user/${currentIdUser}`, false); // false for synchronous request
+                xmlHttp.send(null);
+                return xmlHttp.responseText;
+            }
+
+            var campaigns = JSON.parse(httpGetCampaigns());
+            document.body.onload = adcElemento;
+
+            function adcElemento() {
+                var arrayLength = campaigns.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    campaingId = campaigns[i]["id"]
+                    $(".campanhas").append(`<div id="campanha${campaingId}" class="campanha"><a onclick="saveCampaingId(this.id)" id="${campaingId}" style="text-decoration:none; color: inherit;" href="/pages/pagina_campanha.html"><img class="img-campanha" id="img-campanha${campaingId}" src=""><p class="titulo-campanha" id="titulo-campanha${campaingId}"></p><p class="valor-campanha" id="valor-campanha${campaingId}"></p></a></div><hr class="dotted">`);
+                    document.getElementById(`titulo-campanha${campaingId}`).innerHTML = campaigns[i]["name_campaign"];
+                    var target_value = campaigns[i]["target_value"].toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+                    document.getElementById(`valor-campanha${campaingId}`).innerHTML = target_value;
+                    document.getElementById(`img-campanha${campaingId}`).src = campaigns[i]["url_image"];
+                }
+            }
+
+            function clearCache() {
+                localStorage.clear()
+            }
+
+            function saveCampaingId(id){
+                localStorage.setItem("current_campaign_id", JSON.stringify(id))
+            }
+        </script>
+    </div>
 
     <!--Formulário Campanha-->
     <form class="container px-4 p-2" action="">
-        <div class="row p-1">
-            <button formaction="/pages/cadastro_campanha_imagem.html" type="submit"
-                class="button-default col">Avançar</button>
-        </div>
         <a class="cancelar" href="/pages/home.html">Voltar</button>
     </form>
     <!--Formulário Campanha-->

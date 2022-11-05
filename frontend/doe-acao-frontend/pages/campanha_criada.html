@@ -66,7 +66,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i
+                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i onclick="clearCache()"
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -80,8 +80,8 @@
         <h1 class="titulo-feedback">Campanha criada com sucesso!</h1>
         <i class="fa-regular fa-square-check fa-5x icone-feedback"></i>
         <div class="row p-1">
-            <button onclick="location.href='/pages/pagina_campanha.html'" class="button-default col">Visualizar
-                Campanha</button>
+            <button onclick="location.href='/pages/minhas_campanhas.html'" class="button-default col">Minhas
+                Campanhas</button>
         </div>
         <a class="link-default compartilhar" href="#">Compartilhar</a>
         <a class="cancelar" href="/pages/home.html">Voltar para o início</button>
@@ -90,6 +90,11 @@
 
 
     <!--Scripts-->
+    <script>
+        function clearCache() {
+            localStorage.clear()
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

@@ -24,10 +24,10 @@
 
         <form id="login-form" class="container px-4 p-2 " action="">
             <div class="row p-1">
-                <input class="input-default col" type="email" placeholder="E-mail" required>
+                <input class="input-default col" id="email" type="email" placeholder="E-mail" required>
             </div>
             <div class="row p-1">
-                <input class="input-default col" class="col" type="password" placeholder="Senha" required>
+                <input class="input-default col" id="password" class="col" type="password" placeholder="Senha" required>
             </div>
             <a class="link-default esqueceu-senha" href="#">Esqueceu sua senha?</a>
             <div class="row p-1">
@@ -39,6 +39,61 @@
 
 
     <!--Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function httpGetIdUser() {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", 'https://app-doeacao.herokuapp.com/doeacao/users', false );
+            xmlHttp.send( null );
+            return xmlHttp.responseText;
+        }
+
+        var users = JSON.parse(httpGetIdUser());
+
+        function getUserId () {
+            var arrayLength = users.length;
+            var currentUserEmail = document.getElementById("email").value;
+            for (var i = 0; i < arrayLength; i++) {
+                if ( users[i]["email"] == currentUserEmail ) {
+                    localStorage.setItem("curret_user_email", JSON.stringify(currentUserEmail))
+                    return users[i]["id"];
+                }
+            }
+
+            alert("Usuário não cadastrado.");
+            return false;
+        }
+
+        function checkPassword(currentUserId) {
+            var currentUserPassword = document.getElementById("password").value;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", "https://app-doeacao.herokuapp.com/doeacao/users/login", false );
+            xmlHttp.setRequestHeader("x-doeacao-id", currentUserId);
+            xmlHttp.setRequestHeader("x-doeacao-password", currentUserPassword);
+            xmlHttp.send( null );
+            return xmlHttp.responseText;
+        }
+
+        $('#login-form').on('submit', function(event) {
+            var currentUserId = getUserId();
+            if (currentUserId == false) {
+                return false;
+
+            } else {
+                var checkPasswordResult = JSON.parse(checkPassword(currentUserId));
+                
+                if (checkPasswordResult["active"] == true) {
+                    localStorage.setItem("id_user", JSON.stringify(currentUserId))
+                    window.location.href = "/pages/home.html";
+
+                } else {
+                    alert("Senha incorreta.");
+                    return false;
+                }
+            }
+        });
+    </script>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
