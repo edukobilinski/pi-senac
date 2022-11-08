@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>DoeAção</title>
@@ -65,7 +65,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i onclick="clearCache()"
+                    <a class="nav-link" href="/index.html" style="color: white;"><i
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -84,39 +84,41 @@
 
     <div class="campanhas">
         <script>
-            function httpGetCampaigns() {
+            function getCampaigns() {
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.open("GET", 'https://app-doeacao.herokuapp.com/doeacao/campaigns', false);
                 xmlHttp.send(null);
                 return xmlHttp.responseText;
             }
 
-
-            function httpGetIdUser() {
+            function getUsers() {
                 var xmlHttp = new XMLHttpRequest();
-                xmlHttp.open( "GET", 'https://app-doeacao.herokuapp.com/doeacao/users', false );
-                xmlHttp.send( null );
+                xmlHttp.open("GET", 'https://app-doeacao.herokuapp.com/doeacao/users', false);
+                xmlHttp.send(null);
                 return xmlHttp.responseText;
             }
 
-            function saveUserId (users) {
+            function saveUserId(users) {
                 var arrayLength = users.length;
-                var currentUserEmail = JSON.parse(localStorage.getItem('curret_user_email'));
-                
+                var currentUserEmail = JSON.parse(localStorage.getItem('user_email'));
+
                 for (var i = 0; i < arrayLength; i++) {
-                    if ( users[i]["email"] == currentUserEmail ) {
-                        localStorage.setItem("id_user", JSON.stringify(usersId = users[i]["id"]))
+                    if (users[i]["email"] == currentUserEmail) {
+                        localStorage.setItem("id_user", JSON.stringify(users[i]["id"]))
+                        return users[i]["id"];
                     }
                 }
             }
 
-            var users = JSON.parse(httpGetIdUser());
-            saveUserId(users);
-            var campaigns = JSON.parse(httpGetCampaigns());
             document.body.onload = adcElemento;
 
             function adcElemento() {
+                var users = JSON.parse(getUsers());
+                var currentUserId = saveUserId(users);
+                console.log(localStorage.getItem('id_user'))
+                var campaigns = JSON.parse(getCampaigns());                
                 var arrayLength = campaigns.length;
+
                 for (var i = 0; i < arrayLength; i++) {
                     campaingId = campaigns[i]["id"]
                     $(".campanhas").append(`<div id="campanha${campaingId}" class="campanha"><a style="text-decoration:none; color: inherit;" href="#"><img class="img-campanha" id="img-campanha${campaingId}" src=""><p class="titulo-campanha" id="titulo-campanha${campaingId}"></p><p class="valor-campanha" id="valor-campanha${campaingId}"></p></a></div><hr class="dotted">`);
@@ -125,10 +127,6 @@
                     document.getElementById(`valor-campanha${campaingId}`).innerHTML = target_value;
                     document.getElementById(`img-campanha${campaingId}`).src = campaigns[i]["url_image"];
                 }
-            }
-
-            function clearCache() {
-                localStorage.clear()
             }
         </script>
     </div>

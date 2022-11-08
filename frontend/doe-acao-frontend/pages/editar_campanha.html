@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>DoeAção</title>
@@ -66,7 +66,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i onclick="clearCache()"
+                    <a class="nav-link" href="/index.html" style="color: white;"><i
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -134,16 +134,8 @@
     <script src="https://kit.fontawesome.com/e04a0ccd25.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        var currentCampaignId = JSON.parse(localStorage.getItem('current_campaign_id'));
-
-        function getCampaignById() {
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", `https://app-doeacao.herokuapp.com/doeacao/campaigns/${currentCampaignId}`, false);
-            xmlHttp.send(null);
-            return xmlHttp.responseText;
-        }
-
         window.onload = function () {
+            console.log(localStorage.getItem('id_user'))
             var currentCampaign = JSON.parse(getCampaignById());
             document.getElementById("name_campaign").value = currentCampaign['name_campaign'];
             document.getElementById("target_value").value = currentCampaign['target_value'];
@@ -156,11 +148,16 @@
             document.getElementById("inserir-img-campanha").value = currentCampaign['url_image'];
         }
 
-        function clearCache() {
-            localStorage.clear()
+        function getCampaignById() {
+            var currentCampaignId = JSON.parse(localStorage.getItem('current_campaign_id'));
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", `https://app-doeacao.herokuapp.com/doeacao/campaigns/${currentCampaignId}`, false);
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
         }
 
         function cancelCampaign() {
+            var currentCampaignId = JSON.parse(localStorage.getItem('current_campaign_id'));
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("DELETE", `https://app-doeacao.herokuapp.com/doeacao/campaigns/${currentCampaignId}`, false);
             xmlHttp.send(null);
@@ -182,6 +179,7 @@
             const serialize_form = form => JSON.stringify(dict);
             event.preventDefault();
             const json = serialize_form(this);
+            var currentCampaignId = JSON.parse(localStorage.getItem('current_campaign_id'));
 
             $.ajax({
                 type: 'PUT',
@@ -189,7 +187,9 @@
                 dataType: 'json',
                 data: json,
                 contentType: 'application/json',
+                async: false
             });
+
             alert("Campanha atualizada!");
             window.location.href = "/pages/pagina_campanha.html";
         });

@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>DoeAção</title>
@@ -66,7 +66,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/login.html" style="color: white;"><i onclick="clearCache()"
+                    <a class="nav-link" href="/index.html" style="color: white;"><i
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -128,6 +128,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         window.onload = function () {
+            console.log(localStorage.getItem('id_user'))
             document.getElementById("name_campaign").value = JSON.parse(localStorage.getItem('name_campaign'));
             document.getElementById("target_value").value = JSON.parse(localStorage.getItem('target_value'));
             document.getElementById("beneficiary").value = JSON.parse(localStorage.getItem('beneficiary'));
@@ -136,10 +137,6 @@
             document.getElementById("account_identification").value = JSON.parse(localStorage.getItem('account_identification'));
             document.getElementById("campaign_description").value = JSON.parse(localStorage.getItem('campaign_description'));
             document.getElementById("url_image").src = JSON.parse(localStorage.getItem('url_image'));
-        }
-
-        function clearCache() {
-            localStorage.clear()
         }
 
         $('#cadastro-campanha-form').on('submit', function (event) {
@@ -165,7 +162,8 @@
                 url: 'https://app-doeacao.herokuapp.com/doeacao/campaigns',
                 dataType: 'json',
                 data: json,
-                contentType: 'application/json'
+                contentType: 'application/json',
+                async: false
             });
 
             window.location.href = "/pages/campanha_criada.html";
