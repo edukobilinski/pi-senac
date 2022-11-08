@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>DoeAção</title>
@@ -41,21 +41,21 @@
     <!--Scripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        function httpGetIdUser() {
+        function getUsers() {
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", 'https://app-doeacao.herokuapp.com/doeacao/users', false );
-            xmlHttp.send( null );
+            xmlHttp.open("GET", 'https://app-doeacao.herokuapp.com/doeacao/users', false);
+            xmlHttp.send(null);
             return xmlHttp.responseText;
         }
 
-        var users = JSON.parse(httpGetIdUser());
-
-        function getUserId () {
+        function getUserId() {
+            var users = JSON.parse(getUsers());
             var arrayLength = users.length;
             var currentUserEmail = document.getElementById("email").value;
+
             for (var i = 0; i < arrayLength; i++) {
-                if ( users[i]["email"] == currentUserEmail ) {
-                    localStorage.setItem("curret_user_email", JSON.stringify(currentUserEmail))
+                if (users[i]["email"] == currentUserEmail) {
+                    localStorage.setItem("id_user", JSON.stringify(users[i]["id"]))
                     return users[i]["id"];
                 }
             }
@@ -67,23 +67,25 @@
         function checkPassword(currentUserId) {
             var currentUserPassword = document.getElementById("password").value;
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", "https://app-doeacao.herokuapp.com/doeacao/users/login", false );
+            xmlHttp.open("GET", "https://app-doeacao.herokuapp.com/doeacao/users/login", false);
             xmlHttp.setRequestHeader("x-doeacao-id", currentUserId);
             xmlHttp.setRequestHeader("x-doeacao-password", currentUserPassword);
-            xmlHttp.send( null );
+            xmlHttp.send(null);
             return xmlHttp.responseText;
         }
 
-        $('#login-form').on('submit', function(event) {
+        $('#login-form').on('submit', function (event) {
+            localStorage.setItem("user_email", JSON.stringify(document.getElementById("email").value))
             var currentUserId = getUserId();
+            console.log(currentUserId)
+
             if (currentUserId == false) {
                 return false;
 
             } else {
                 var checkPasswordResult = JSON.parse(checkPassword(currentUserId));
-                
+
                 if (checkPasswordResult["active"] == true) {
-                    localStorage.setItem("id_user", JSON.stringify(currentUserId))
                     window.location.href = "/pages/home.html";
 
                 } else {

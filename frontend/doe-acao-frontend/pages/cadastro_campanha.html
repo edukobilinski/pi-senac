@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>DoeAção</title>
@@ -66,7 +66,7 @@
                     <a class="nav-link" href="#" style="color: white;"><i class="fa-solid fa-lock"></i>Alterar Senha</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html" style="color: white;"><i onclick="clearCache()"
+                    <a class="nav-link" href="///index.html" style="color: white;"><i
                             class="fa-solid fa-circle-arrow-left"></i>Sair</a>
                 </li>
             </ul>
@@ -113,14 +113,18 @@
                 required></textarea>
         </div>
         <div class="row p-1">
-            <button formaction="/pages/revisar_campanha.html" onclick="cacheInput()" type="submit" class="button-default col">Avançar</button>
+            <button formaction="/pages/revisar_campanha.html" onclick="cacheInput()" type="submit"
+                class="button-default col">Avançar</button>
         </div>
         <a class="cancelar" href="/pages/home.html">Cancelar</button>
     </form>
     <!--Formulário Campanha-->
 
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+        console.log(localStorage.getItem('id_user'))
+        
         function cacheInput() {
             var idUser = localStorage.getItem('id_user')
             localStorage.clear()
@@ -134,10 +138,6 @@
             localStorage.setItem("url_image", JSON.stringify(document.getElementById("inserir-img-campanha").value));
             localStorage.setItem("id_user", idUser)
             return false;
-        }
-
-        function clearCache() {
-            localStorage.clear()
         }
     </script>
 
