@@ -63,7 +63,7 @@ _[descrever..]_
 - Ver.01
 - Jornada do usuário: Criando campanhas
 
-![vídeo ou gif]()
+![vídeo ou gif](https://github.com/eliasalbuquerque/senac-pi-webdev/blob/develop/assets/doe-acao-gif01.gif?raw=true)
 
 
 
@@ -93,13 +93,12 @@ _[descrever..]_
 
 ## 1ª Entrega do projeto
 
-### Planejamento para o desenvolvimento
+### Planejamento
 
-- Ciclo de vida do projeto
+<!-- - Ciclo de vida do projeto
   - Especificação de projeto
   - Projeto (protótipo)
   - Diagrama UML
-
 - Requisitos
   - Descrever as necessidades do usuário, a forma de uso e como poderemos inovar o uso da aplicação.
 - Planejamento
@@ -115,11 +114,16 @@ _[descrever..]_
       - Diagrama UML
       - Concepção
       - Elaboração
-      - Construção
+      - Construção -->
 
+- Ciclo de vida do projeto
+- Requisitos
+- Planejamento
 
 
 ## 2ª Entrega do projeto
+
+### Desenvolvimento
 
 - Arquitetura da solução de software
 - Implementação do webservice e dos serviços disponíveis
