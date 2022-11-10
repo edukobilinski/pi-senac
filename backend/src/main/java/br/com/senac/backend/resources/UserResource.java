@@ -73,7 +73,7 @@ public class UserResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
-    @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
@@ -103,7 +103,7 @@ public class UserResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/login",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserLoggedDTO> userLogIn(@RequestHeader(ID) Long id, @RequestHeader(PASSWORD) String password) {
 
         var context = ContextLog.builder()

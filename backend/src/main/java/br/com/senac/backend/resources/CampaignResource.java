@@ -86,7 +86,7 @@ public class CampaignResource {
         return ResponseEntity.created(uri).body(objSaved);
     }
 
-    @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
