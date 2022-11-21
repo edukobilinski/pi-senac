@@ -174,7 +174,7 @@ Para o desenvolvimento foram utilizadas as seguintes tecnologias:
 
 # Estrutura do Trabalho Escrito
 
-- [Link Trabalho escrito .pdf](https://github.com/edukobilinski/pi-senac/blob/develop/trabalho-escrito/PI_2203_parte_1.pdf)
+- [Link Trabalho escrito .pdf](https://github.com/edukobilinski/pi-senac/blob/master/trabalho-escrito/PI_2203_parte_2.pdf)
 
 
 
