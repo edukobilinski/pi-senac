@@ -1,6 +1,9 @@
 package br.com.senac.backend.services;
 
 import br.com.senac.backend.dto.CampaignDTO;
+import br.com.senac.backend.dto.CampaignInsertDTO;
+import br.com.senac.backend.dto.CampaignSavedDTO;
+import br.com.senac.backend.dto.CampaignUpdateDTO;
 import br.com.senac.backend.entities.Campaign;
 import br.com.senac.backend.exceptions.DatabaseException;
 import br.com.senac.backend.exceptions.ResourceNotFoundException;
@@ -37,7 +40,12 @@ public class CampaignService {
         var list = campaignRepository.findCampaignByUser_Id(id)
                 .stream().map(c -> campaignMapper.mapToDTO(c)).collect(Collectors.toList());
 
-        log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
+        if (!list.isEmpty()) {
+            log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
+        } else {
+            log.severe(SRV_0003E.getObjDescription(id.toString()));
+            throw new ResourceNotFoundException(id);
+        }
 
         return list;
     }
@@ -70,13 +78,14 @@ public class CampaignService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public Campaign insert(Campaign obj) {
+    public CampaignSavedDTO insert(CampaignInsertDTO objInsert) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
                 .build();
+        var obj = campaignMapper.mapDtoToCampaign(objInsert);
 
-        var objSaved = campaignRepository.save(obj);
+        var objSaved = campaignMapper.mapToSavedDTO(campaignRepository.save(obj));
         if (objSaved != null) {
             log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
         }
@@ -100,7 +109,7 @@ public class CampaignService {
         }
     }
 
-    public Campaign update(Long id, Campaign obj) {
+    public CampaignSavedDTO update(Long id, CampaignUpdateDTO obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
@@ -110,7 +119,7 @@ public class CampaignService {
 
             updateData(entity, obj);
 
-            var objSaved = campaignRepository.save(entity);
+            var objSaved = campaignMapper.mapToSavedDTO(campaignRepository.save(entity));
 
             if (objSaved != null) {
                 log.info(SRV_0001D.logContext(context.getClasse(), context.getMetodo()));
@@ -122,7 +131,7 @@ public class CampaignService {
         }
     }
 
-    private void updateData(Campaign entity, Campaign obj) {
+    private void updateData(Campaign entity, CampaignUpdateDTO obj) {
         entity.setName(obj.getName());
         entity.setTargetValue(obj.getTargetValue());
         entity.setBeneficiary(obj.getBeneficiary());
@@ -130,6 +139,7 @@ public class CampaignService {
         entity.setAccountAgency(obj.getAccountAgency());
         entity.setAccountIdentification(obj.getAccountIdentification());
         entity.setCampaignDescription(obj.getCampaignDescription());
+        entity.setUrlImage(obj.getUrlImage());
     }
 
 }

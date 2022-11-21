@@ -28,10 +28,10 @@ public class TestPopulate implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(user01, user02, user03));
 
-        Campaign campaign01 = new Campaign(null, "Financia Meu Curso", 5000.0, user01.getName(), "Itaú-341", "0452", "52437-4", "Me ajuda na minha campanha por favor", "http://localhost:8080/images01.jpg", user01);
-        Campaign campaign02 = new Campaign(null, "Conserta essa lata velha", 1599.0, user02.getName(), "Santander-033", "0661", "48420371-8", "Ajuda a ressucitar meu carro velho!", "http://localhost:8080/images02.jpg", user02);
-        Campaign campaign03 = new Campaign(null, "Churrasco para o meu aniversário", 900.0, user02.getName(), "Banco do Brasil-001", "2026", "1003686-5", "Preciso de ajuda com minha festa de aniversário, me ajuda a ser feliz!", "http://localhost:8080/images03.jpg", user03);
-        Campaign campaign04 = new Campaign(null, "Apoia minha academia", 50.0, user01.getName(), "Itaú-341", "0452", "52437-4", "Me ajuda a ser fitness", "http://localhost:8080/images04.jpg", user01);
+        Campaign campaign01 = new Campaign(null, "Financia Meu Curso", 5000.0, user01.getName(), "Itaú-341", "0452", "52437-4", "Me ajuda na minha campanha por favor", "https://clickpetroleoegas.com.br/wp-content/uploads/2021/02/SENAC-2-738x490.jpg", user01);
+        Campaign campaign02 = new Campaign(null, "Conserta essa lata velha", 1599.0, user02.getName(), "Santander-033", "0661", "48420371-8", "Ajuda a ressucitar meu carro velho!", "http://1.bp.blogspot.com/-6-LxO_AG0Fs/Tlfl4_nMS4I/AAAAAAAACK8/cHMgY6-e72g/s1600/vendendo-o-carro-velho.jpg", user02);
+        Campaign campaign03 = new Campaign(null, "Churrasco para o meu aniversário", 900.0, user02.getName(), "Banco do Brasil-001", "2026", "1003686-5", "Preciso de ajuda com minha festa de aniversário, me ajuda a ser feliz!", "https://i.pinimg.com/originals/24/40/f9/2440f9e27310e5917f753ad4ce65696c.jpg", user03);
+        Campaign campaign04 = new Campaign(null, "Apoia minha academia", 50.0, user01.getName(), "Itaú-341", "0452", "52437-4", "Me ajuda a ser fitness", "https://news.gympass.com/wp-content/uploads/2018/07/escolher-a-melhor-academia.jpg", user01);
 
         campaignRepository.saveAll(Arrays.asList(campaign01, campaign02, campaign03, campaign04));
     }

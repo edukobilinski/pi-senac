@@ -1,7 +1,9 @@
 package br.com.senac.backend.resources;
 
 import br.com.senac.backend.dto.CampaignDTO;
-import br.com.senac.backend.entities.Campaign;
+import br.com.senac.backend.dto.CampaignInsertDTO;
+import br.com.senac.backend.dto.CampaignSavedDTO;
+import br.com.senac.backend.dto.CampaignUpdateDTO;
 import br.com.senac.backend.services.CampaignService;
 import br.com.senac.backend.utils.ContextLog;
 import lombok.extern.java.Log;
@@ -68,23 +70,23 @@ public class CampaignResource {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Campaign> insert(@RequestBody Campaign obj) {
+    public ResponseEntity<CampaignSavedDTO> insert(@RequestBody CampaignInsertDTO obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
                 .build();
         log.info(RSC_0001D.logContext(context.getClasse(), context.getMetodo()));
 
-        obj = campaignService.insert(obj);
+        var objSaved = campaignService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(obj.getId()).toUri();
+                .buildAndExpand(objSaved.getId()).toUri();
 
         log.info(RSC_0003D.getObjDescription(uri.toString()));
         log.info(RSC_0002D.logContext(context.getClasse(), context.getMetodo()));
-        return ResponseEntity.created(uri).body(obj);
+        return ResponseEntity.created(uri).body(objSaved);
     }
 
-    @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
@@ -100,18 +102,18 @@ public class CampaignResource {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Campaign> update(@PathVariable Long id, @RequestBody Campaign obj) {
+    public ResponseEntity<CampaignSavedDTO> update(@PathVariable Long id, @RequestBody CampaignUpdateDTO obj) {
         var context = ContextLog.builder()
                 .classe(Thread.currentThread().getStackTrace()[1].getClassName())
                 .metodo(Thread.currentThread().getStackTrace()[1].getMethodName())
                 .build();
         log.info(RSC_0001D.logContext(context.getClasse(), context.getMetodo()));
 
-        obj = campaignService.update(id, obj);
+        var objUpdated = campaignService.update(id, obj);
 
         log.info(RSC_0005D.getObjDescription(obj.toString()));
         log.info(RSC_0002D.logContext(context.getClasse(), context.getMetodo()));
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(objUpdated);
     }
 
 }
