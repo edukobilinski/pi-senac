@@ -93,7 +93,7 @@ $ http-server --port 8080
 Com o guia acima já é o suficiente para ter acesso às funcionalidades da aplicação 
 conforme as features já implementadas até o momento.
 
-O backend está rodando e disponível no [Heroko](https://www.heroku.com/about), porém, 
+O backend está rodando e disponível no [Heroku](https://www.heroku.com/about), porém, 
 caso queira rodar o backend de forma local, deve seguir os seguintes pré-requisitos:
 
 Ter instalado em sua máquina as seguintes ferramentas: [Git](https://git-scm.com) 
