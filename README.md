@@ -1,7 +1,8 @@
+<!-- Título -->
 # PI: Desenvolvimento de Sistemas Orientado a Dispositivos Móveis Baseados na WEB
 
 
-
+<!-- Descrição -->
 ## Sobre o Projeto
 
 O objetivo do projeto é criar uma ferramenta web que possa ser utilizada para 
@@ -11,10 +12,118 @@ comunicação e atender às necessidades de pessoas que precisam de ajuda e assi
 usando o _DoeAção_ como veículo de ajuda e comunicação.
 
 
+<!-- Status do projeto -->
 
+
+<!-- TOC -->
+## Table of contents
+
+- [PI: Desenvolvimento de Sistemas Orientado a Dispositivos Móveis Baseados na WEB](#pi-desenvolvimento-de-sistemas-orientado-a-dispositivos-móveis-baseados-na-web)
+  - [Sobre o Projeto](#sobre-o-projeto)
+  - [Table of contents](#table-of-contents)
+  - [Features](#features)
+  - [Demonstração da aplicação](#demonstração-da-aplicação)
+    - [Modelo conceitual](#modelo-conceitual)
+  - [Pré-requisitos](#pré-requisitos)
+    - [Rodando a aplicação](#rodando-a-aplicação)
+    - [Rodando o Back-end](#rodando-o-back-end)
+  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+    - [Front-end](#front-end)
+    - [Back-end](#back-end)
+    - [Cloud](#cloud)
+  - [Autores](#autores)
+- [Estrutura do Trabalho Escrito](#estrutura-do-trabalho-escrito)
+  - [1ª Entrega do projeto](#1ª-entrega-do-projeto)
+  - [2ª Entrega do projeto](#2ª-entrega-do-projeto)
+
+
+<!-- Features -->
+## Features
+
+- [x] Cadastro de campanha
+- [ ] Contribuição para campanha
+- [ ] Divulgação em redes sociais
+
+
+
+<!-- Demonstração da aplicação -->
+## Demonstração da aplicação
+
+- Ver.1.0
+- Jornada do usuário criando campanhas:
+
+![vídeo ou gif](https://github.com/eliasalbuquerque/senac-pi-webdev/blob/develop/assets/doe-acao-gif01.gif?raw=true)
+
+### Modelo conceitual
+
+![Diagrama de caso de uso](https://raw.githubusercontent.com/edukobilinski/pi-senac/develop/assets/diagrama-de-caso-de-uso.png)
+
+
+
+<!-- Pré-requisitos e como rodar a aplicação/testes -->
+## Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes 
+ferramentas: [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e 
+[NPM](https://www.npmjs.com/). Além disto é bom ter um editor para trabalhar com 
+o código como [VSCode](https://code.visualstudio.com/).
+
+- Node v14.17.0
+- Npm v6.14.13
+
+### Rodando a aplicação
+
+```bash
+# Clone este repositório
+$ git clone <https://github.com/edukobilinski/pi-senac>
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd frontend/doe-acao-frontend
+
+# Instale as dependências
+$ npm install
+
+# Execute a aplicação em modo de desenvolvimento
+$ http-server --port 8080
+
+# O servidor inciará na porta: 8080 - acesse <http://localhost:8080/>
+```
+
+
+Com o guia acima já é o suficiente para ter acesso às funcionalidades da aplicação 
+conforme as features já implementadas até o momento.
+
+O backend está rodando e disponível no [Heroko](https://www.heroku.com/about), porém, 
+caso queira rodar o backend de forma local, deve seguir os seguintes pré-requisitos:
+
+Ter instalado em sua máquina as seguintes ferramentas: [Git](https://git-scm.com) 
+e o [Docker](https://www.docker.com/).
+
+### Rodando o Back-end
+
+```bash
+# Clone este repositório
+$ git clone <https://github.com/edukobilinski/pi-senac>
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd backend
+
+# Criar a Imagem/Container executando o Dockerfile
+$ docker build -t doe-acao-front:1.0 .
+
+# Executar o Container
+$ docker run -p 8082:8082 doe-acao-front:1.0
+
+# O servidor inciará na porta: 8082 - acesse <http://localhost:8082/doeacao>
+```
+
+
+
+
+<!-- Tecnologias utilizadas -->
 ## Tecnologias Utilizadas
 
-Para o desenvolvimento foram utilizadas tecnologias as seguintes tecnologias:
+Para o desenvolvimento foram utilizadas as seguintes tecnologias:
 
 ### Front-end
 
@@ -44,38 +153,16 @@ Para o desenvolvimento foram utilizadas tecnologias as seguintes tecnologias:
 
 
 
-## Implantação
+<!-- Autor -->
+## Autores
 
-<!-- descrever resumidamente como essas tecnologias estão conectadas e funcionando -->
+- Eduardo Henrique Batista Gomes
+- Eduardo Kobilinski de Araujo
+- Elias Gonçalves de Albuquerque Júnior
+- Ezequias Manoel Monteiro Dos Santos
+- Felipe de Paula Silva
+- Fernanda Fonseca Scherer
 
-_[descrever..]_
-
-
-
-## Modelo Conceitual
-
-![Diagrama de Caso de Uso](https://raw.githubusercontent.com/edukobilinski/pi-senac/develop/frontend/diagrama-de-caso-de-uso.png)
-
-
-
-## Aplicação
-
-- Ver.01
-- Jornada do usuário: Criando campanhas
-
-![vídeo ou gif](https://github.com/eliasalbuquerque/senac-pi-webdev/blob/develop/assets/doe-acao-gif01.gif?raw=true)
-
-
-
-
-
-<!-- 
-# Como Executar o Projeto
-
-## Pré-requisitos:
-
-## 
--->
 
 
 
@@ -93,7 +180,7 @@ _[descrever..]_
 
 ## 1ª Entrega do projeto
 
-### Planejamento
+**Planejamento**
 
 <!-- - Ciclo de vida do projeto
   - Especificação de projeto
@@ -123,7 +210,7 @@ _[descrever..]_
 
 ## 2ª Entrega do projeto
 
-### Desenvolvimento
+**Desenvolvimento**
 
 - Arquitetura da solução de software
 - Implementação do webservice e dos serviços disponíveis
